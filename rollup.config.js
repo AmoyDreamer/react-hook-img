@@ -8,7 +8,7 @@ let config = {
     input: 'src/index.js',
     output: [{
         file: './index.js',
-        format: 'cjs'
+        format: 'esm'
     }],
     external: ['react'],
     plugins: [

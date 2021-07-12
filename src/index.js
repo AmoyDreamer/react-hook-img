@@ -68,7 +68,7 @@ const ImagePreviewer = (props) => {
 	}
 	return null
 }
-export default function useImage(props) {
+const useImage = (props) => {
 	const { url, preview, className } = props
 	const [object, setObject] = useState(() => ({
 		open: false,
@@ -95,7 +95,7 @@ export default function useImage(props) {
 			.catch(() => {})
 	}
 	const { open, style } = object
-	let previewer = useMemo(() => <ImagePreviewer
+	const previewer = useMemo(() => <ImagePreviewer
 		open={open}
 		style={style}
 		url={url}
@@ -118,3 +118,4 @@ export default function useImage(props) {
 		</Fragment>
 	)
 }
+export default useImage
