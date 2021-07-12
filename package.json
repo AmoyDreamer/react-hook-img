@@ -1,0 +1,42 @@
+{
+  "name": "react-hook-img",
+  "version": "1.0.0",
+  "description": "An image component of React Hook that supports image preview.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "eslint": "eslint ./src/index.js --fix"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AmoyDreamer/react-hook-img.git"
+  },
+  "keywords": [
+    "react",
+    "hook",
+    "react hooks",
+    "image",
+    "preview",
+    "previewer",
+    "image preview"
+  ],
+  "author": "Allen Liu",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/AmoyDreamer/react-hook-img/issues"
+  },
+  "homepage": "https://github.com/AmoyDreamer/react-hook-img#readme",
+  "engines": {
+    "node": ">=8.0.0",
+    "npm": ">=5.0.0"
+  },
+  "peerDependencies": {
+    "react": ">=16.8.0"
+  },
+  "devDependencies": {
+    "eslint": "^7.30.0",
+    "eslint-plugin-react": "^7.24.0",
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "react": "^17.0.2"
+  }
+}

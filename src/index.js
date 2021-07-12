@@ -35,89 +35,86 @@ const GetPreviewImageSize = (url, scale=0.7) => {
 	})
 }
 const FullScreenStyle = {
-    position: 'fixed',
-    top: 0,
-    bottom: 0,
-    left: 0,
-    right: 0,
-    backgroundColor: 'rgba(0, 0, 0, .8)',
-    zIndex: 999
+	position: 'fixed',
+	top: 0,
+	bottom: 0,
+	left: 0,
+	right: 0,
+	backgroundColor: 'rgba(0, 0, 0, .8)',
+	zIndex: 999
 }
 const AbsoluteCenterStyle = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    marginRight: '-50%',
-    MsTransform: 'translate(-50%, -50%)',
-    MozTransform: 'translate(-50%, -50%)',
-    WebkitTransform: 'translate(-50%, -50%)',
-    OTransform: 'translate(-50%, -50%)',
-    transform: 'translate(-50%, -50%)'
+	position: 'absolute',
+	top: '50%',
+	left: '50%',
+	marginRight: '-50%',
+	MsTransform: 'translate(-50%, -50%)',
+	MozTransform: 'translate(-50%, -50%)',
+	WebkitTransform: 'translate(-50%, -50%)',
+	OTransform: 'translate(-50%, -50%)',
+	transform: 'translate(-50%, -50%)'
 }
 //image previewer
 const ImagePreviewer = (props) => {
-    const { open, url, style, onClose } = props
-    if (open) {
-        return (
-            <div style={FullScreenStyle} onClick={() => typeof onClose === 'function' ? onClose() : null}>
-                <div style={AbsoluteCenterStyle}>
-                    <img style={style || {}} src={url}/>
-                </div>
-            </div>
-        )
-    }
-    return null
+	const { open, url, style, onClose } = props
+	if (open) {
+		return (
+			<div style={FullScreenStyle} onClick={() => typeof onClose === 'function' ? onClose() : null}>
+				<div style={AbsoluteCenterStyle}>
+					<img style={style || {}} src={url}/>
+				</div>
+			</div>
+		)
+	}
+	return null
 }
-export default (props) => {
-    const { url, preview, className } = props
-    const [object, setObject] = useState(() => ({
-        open: false,
-        style: {},
-    }))
-    const closePreviewer = () => {
-        setObject({
-            open: false,
-            style: {},
-        })
-    }
-    const openPreviewer = () => {
-        GetPreviewImageSize(url)
-        .then(({ width, height }) => {
-            setObject({
-                open: true,
-                style: {
-                    display: 'block',
-                    width: width,
-                    height: height
-                }
-            })
-        })
-        .catch(() => {})
-    }
-    const { open, style } = object
-    let previewer
-    if (preview) {
-        previewer = useMemo(() => <ImagePreviewer
-            open={open}
-            style={style}
-            url={url}
-            onClose={closePreviewer}
-        />, [open])
-    }
-    let tagProps = {
-        src: url,
-        onClick: () => preview ? openPreviewer() : null
-    }
-    if (className) {
-        tagProps = {
-            ...tagProps,
-            className: className
-        }
-    }
-    return (
-        <Fragment>
-            <img {...tagProps}/>
-            {previewer}
-        </Fragment>
-    )
+export default function useImage(props) {
+	const { url, preview, className } = props
+	const [object, setObject] = useState(() => ({
+		open: false,
+		style: {}
+	}))
+	const closePreviewer = () => {
+		setObject({
+			open: false,
+			style: {}
+		})
+	}
+	const openPreviewer = () => {
+		GetPreviewImageSize(url)
+			.then(({ width, height }) => {
+				setObject({
+					open: true,
+					style: {
+						display: 'block',
+						width: width,
+						height: height
+					}
+				})
+			})
+			.catch(() => {})
+	}
+	const { open, style } = object
+	let previewer = useMemo(() => <ImagePreviewer
+		open={open}
+		style={style}
+		url={url}
+		onClose={closePreviewer}
+	/>, [open])
+	let tagProps = {
+		src: url,
+		onClick: () => preview ? openPreviewer() : null
+	}
+	if (className) {
+		tagProps = {
+			...tagProps,
+			className: className
+		}
+	}
+	return (
+		<Fragment>
+			<img {...tagProps}/>
+			{previewer}
+		</Fragment>
+	)
 }
